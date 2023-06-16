@@ -6,7 +6,7 @@ export const Ul = styled.ul`
   list-style: none;
 
   @media screen and (max-width: 500px) {
-display: block;
+    display: block;
   }
 `;
 export const Li = styled.li`
@@ -19,7 +19,9 @@ export const Box = styled.div`
   display: flex;
   text-decoration: none;
   color: #b61c1c;
-
+  justify-content: space-evenly;
+  align-items: center;
+  display: flex;
   @media screen and (max-width: 500px) {
     float: none;
     display: block;
@@ -57,7 +59,6 @@ export const NavbarContainer = styled.div`
   background-color: #f5f5f5;
 
   @media screen and (max-width: 500px) {
-    flex-direction: column;
     padding: 20px;
   }
 `;
@@ -70,7 +71,7 @@ export const Search = styled.div`
   padding: 5px;
 
   @media screen and (max-width: 500px) {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
   }
 `;
 
@@ -92,6 +93,9 @@ export const InputBase = styled.input`
 export const Link = styled.p`
   margin: 0 10px;
   color: ${(props) => (props.active ? "brown" : "inherit")};
+  // color: black;
+  // text-decoration: none;
+  // align-items: center;
 
   @media screen and (max-width: 500px) {
     margin: 5px 0;

@@ -1,124 +1,118 @@
-/* eslint-disable react/jsx-key */
-import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, Li, Ul } from "./style";
 import { setSearch } from "../../../store/slices/Slice";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Boxe from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-
-import {
-  Buttons,
-  InputBase,
-  Link,
-  NavbarContainer,
-  Search,
-  SearchIconWrapper,
-} from "./style";
-import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import * as React from "react";
+import Boxs from "@mui/material/Box";
+import Tabs, { tabsClasses } from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { useMediaQuery } from "@mui/material";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const [state, setState] = useState({
-    left: false,
-  });
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const history = useNavigate();
+  const isMobile = useMediaQuery("(max-width:774px)");
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  const [value, setValue] = React.useState(0);
 
-    setState({ ...state, [anchor]: open });
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
-  const list = (anchor) => (
-    <Boxe
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {[
-          "Advertise",
-          "Blog",
-          "Unsplash",
-          "Submit a photo",
-          <NotificationsIcon fontSize="small" />,
-          <AccountCircleIcon fontSize="small" />,
-          <MoreVertIcon fontSize="small" />,
-        ].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon></ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List></List>
-    </Boxe>
-  );
+  const handleNavigate = (route, e) => {
+    dispatch(setSearch(route));
+    console.log(e);
+    history(route);
+  };
 
   return (
     <div>
-      <NavbarContainer>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <InputBase
-            onChange={(e) => dispatch(setSearch(e.target.value))}
-            placeholder="Search..."
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
+      <Box>
+        {isMobile ? null : (
+          <Li>
+            <Link
+              onClick={(e) => dispatch(setSearch(e.target.value))}
+              style={{
+                color: "black",
+                textDecoration: "none",
 
-        {isMobile ? (
-          ["right"].map((anchor) => (
-            <Fragment key={anchor}>
-              <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-              <Drawer
-                anchor={anchor}
-                open={state[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-              >
-                {list(anchor)}
-              </Drawer>
-            </Fragment>
-          ))
-        ) : (
-          <>
-            <Link>Advertise</Link>
-            <Link>Blog</Link>
-            <Link active>Unsplash +</Link>
-            <Link>Submit a photo</Link>
-            <Buttons>
-              <NotificationsIcon fontSize="large" />
-            </Buttons>
-            <Buttons>
-              <AccountCircleIcon fontSize="large" />
-            </Buttons>
-            <Buttons>
-              <MoreVertIcon fontSize="large" />
-            </Buttons>
-          </>
+                alignItems: "center",
+              }}
+              to="/"
+            >
+              Editorial
+            </Link>
+          </Li>
         )}
-      </NavbarContainer>
+        <Ul>
+          <Boxs
+            sx={{
+              flexGrow: 1,
+              bgcolor: "background.paper",
+              width: "100%",
+            }}
+          >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons
+              aria-label="visible arrows tabs example"
+              sx={{
+                [`& .${tabsClasses.scrollButtons}`]: {
+                  "&.Mui-disabled": { opacity: 0.3 },
+                },
+                width: "90%",
+                display: "flex",
+              }}
+            >
+              <Tab
+                label="wallpaper"
+                onClick={() => handleNavigate("/wallpaper")}
+              />
+              <Tab
+                label="3d renders"
+                onClick={() => handleNavigate("/3d-renders")}
+              />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Nature" onClick={() => handleNavigate("/nature")} />
+              <Tab label="Travel" onClick={() => handleNavigate("/travel")} />
+              <Tab
+                label="Street photography"
+                onClick={() => handleNavigate("/street-photography")}
+              />
+              <Tab
+                label="Film"
+                onClick={(e) => handleNavigate("/film", e.target.textcContant)}
+              />
+              <Tab
+                label="Animal"
+                onClick={(e) =>
+                  handleNavigate("/animal", e.target.textcContant)
+                }
+              />
+              <Tab
+                label="Work"
+                onClick={(e) => handleNavigate("/work", e.target.textcContant)}
+              />
+            </Tabs>
+          </Boxs>
+        </Ul>
+      </Box>
     </div>
   );
 }

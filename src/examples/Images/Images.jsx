@@ -6,11 +6,16 @@ import { Masonry } from "@mui/lab";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useSelector } from "react-redux";
+import { Div, Img, Likes, Span } from "./style";
+import { useMediaQuery } from "@mui/material";
 // import { setSearch } from "../../../store/slices/Slice";
 function ImageMasonry() {
   const [images, setImages] = useState([]);
   const [likedImages, setLikedImages] = useState("");
   const [showLikes, setShowLikes] = useState(null);
+  const isTablate = useMediaQuery("(max-width:768px)");
+  const isMobile = useMediaQuery("(max-width:590px)");
+
   // const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.search.search);
   console.log(searchValue);
@@ -98,55 +103,28 @@ function ImageMasonry() {
       }}
     >
       <Masonry
-        columns={3}
+        columns={isMobile ? 1 : isTablate ? 2 : 3}
         spacing={2}
         sx={{
           width: "80%",
           display: "flex",
           margin: "0.5rem",
-          // border: "1px solid pink",
         }}
       >
         {images.map((item) => (
           <div
             key={item.id}
             style={{
-              display: "flex",
-              justifyContent: "center",
               position: "relative",
-              // border: "2px solid yellow",
             }}
             onMouseEnter={() => handleMouseEnter(item.id)}
             onMouseLeave={handleMouseLeave}
           >
             {showLikes === item.id && (
               <>
-                {/* <div
-                  style={{
-                    height: "100%",
-                    border: "2px solid black",
-                    position: "absolute",
-                    width: "100%",
-                  }}
-                > */}
-
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    backgroundColor: "transparent",
-                    // left: "3%",
-                    marginLeft: "1rem",
-                    color: "white",
-                    // border: "2px solid red",
-                    display: "flex",
-                    alignItems: "end",
-                    // alignItems: "center",
-                    justifyContent: "start",
-                  }}
-                >
+                <Likes>
                   <FavoriteIcon
+                    fontSize="small"
                     onClick={() => handleLike(item.id)}
                     sx={{
                       position: "absolute",
@@ -163,6 +141,7 @@ function ImageMasonry() {
                   />
 
                   <AddCircleOutlineIcon
+                    fontSize="small"
                     sx={{
                       position: "absolute",
                       top: "5%",
@@ -174,15 +153,7 @@ function ImageMasonry() {
                       backgroundColor: "white",
                     }}
                   />
-                  <div
-                    style={{
-                      display: "flex",
-                      // justifyContent: "space-evenly",
-                      alignItems: "center",
-                      justifyContent: "space-around",
-                      width: "90%",
-                    }}
-                  >
+                  <Div>
                     <img
                       key={item.user.id}
                       src={avtar[item.user.id]}
@@ -192,16 +163,10 @@ function ImageMasonry() {
                         borderRadius: "50%",
                       }}
                     />
-                    <h2>{item.user.name}</h2>
-                    <span
-                      style={{
-                        display: "flex",
-                        justifyContent: "end",
-                        alignItems: "end",
-                        height: "100%",
-                      }}
-                    >
+                    <p>{item.user.name}</p>
+                    <Span>
                       <DownloadIcon
+                        fontSize="small"
                         onClick={() => handleDownload(item.id, item.url)}
                         sx={{
                           cursor: "pointer",
@@ -211,23 +176,17 @@ function ImageMasonry() {
                           padding: "2px 8px",
                         }}
                       />
-                    </span>
-                  </div>
-                </div>
+                    </Span>
+                  </Div>
+                </Likes>
                 {/* </div> */}
               </>
             )}
             <div>
-              <img
+              <Img
                 src={`${item.url}?w=162&auto=format`}
                 srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
                 loading="lazy"
-                style={{
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                  width: "100%",
-                  boxShadow: "4px 4px 5px gray",
-                }}
               />
             </div>
           </div>
